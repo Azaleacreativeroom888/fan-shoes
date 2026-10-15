@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>靴ノート | 靴のことを学んで、描く</title>
+<meta name="description" content="靴の勉強の記録と、漫画やイラストをまとめたサイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #000;
+  --text: #fff;
+  --muted: #b5b5b5;
+  --line: #2a2a2a;
+  --orange: #fa5400;
+  --blue: #2d7bff;
+  --display: "Dela Gothic One", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  line-height: 1.8;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+/* ヘッダー */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 18px 5vw;
+  border-bottom: 1px solid var(--line);
+}
+.logo { font-family: var(--display); font-size: 1.35rem; letter-spacing: .04em; }
+.logo span { color: var(--orange); }
+.nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.nav a { font-weight: 700; padding: 4px 0; border-bottom: 3px solid transparent; }
+.nav a:hover { border-bottom-color: var(--orange); }
+.nav a[aria-current="page"] { border-bottom-color: var(--blue); }
+
+/* ヒーロー */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 9vh 5vw 11vh;
+  min-height: 78vh;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.hero-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.stripe { animation: slide-in .9s cubic-bezier(.2,.8,.2,1) both; }
+.stripe:nth-child(2) { animation-delay: .12s; }
+.stripe:nth-child(3) { animation-delay: .24s; }
+.sweep { animation: draw 1.2s .4s ease-out both; }
+@keyframes slide-in { from { transform: translateX(120px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes draw { from { stroke-dashoffset: 1600; } to { stroke-dashoffset: 0; } }
+.kanji {
+  position: absolute;
+  right: 3vw;
+  bottom: -6vw;
+  font-family: var(--display);
+  font-size: clamp(14rem, 38vw, 34rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255,255,255,.22);
+  user-select: none;
+}
+.hero-body { position: relative; max-width: 640px; }
+.hero h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 8vw, 5.6rem);
+  line-height: 1.12;
+  letter-spacing: .02em;
+}
+.hero p { margin-top: 22px; max-width: 30em; color: var(--muted); font-size: 1.05rem; }
+.hero-actions { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  border: 2px solid transparent;
+  transition: transform .15s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-orange { background: var(--orange); color: #000; }
+.btn-blue { border-color: var(--blue); color: var(--blue); }
+.btn-blue:hover { background: var(--blue); color: #000; }
+
+/* セクション */
+.section { padding: 72px 5vw; border-bottom: 1px solid var(--line); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 30px; }
+.section h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 4vw, 2.3rem); }
+.more { font-weight: 700; color: var(--orange); border-bottom: 2px solid var(--orange); }
+.more:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+/* ブログ（Twitter形式） */
+.feed { max-width: 640px; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.post { padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.post:last-child { border-bottom: none; }
+.post time { display: block; font-size: .85rem; color: var(--blue); font-weight: 700; margin-bottom: 4px; }
+.post p { max-width: 36em; }
+
+/* ギャラリー */
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.tile {
+  aspect-ratio: 4 / 5;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  font-weight: 700;
+  color: var(--muted);
+  background: #0d0d0d;
+}
+.tile:nth-child(1) { border-bottom: 5px solid var(--orange); }
+.tile:nth-child(2) { border-bottom: 5px solid var(--blue); }
+.tile:nth-child(3) { border-bottom: 5px solid var(--orange); }
+.note { margin-top: 14px; color: var(--muted); font-size: .9rem; }
+
+/* About */
+.about { max-width: 34em; color: var(--muted); }
+.about strong { color: var(--text); }
+
+.site-footer { padding: 30px 5vw 40px; color: var(--muted); font-size: .9rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 720px) {
+  .hero { min-height: 70vh; padding-top: 7vh; }
+  .tiles { grid-template-columns: 1fr 1fr; }
+  .tile:nth-child(3) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stripe, .sweep { animation: none; }
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="index.html">靴<span>ノート</span></a>
+  <nav class="nav" aria-label="メインメニュー">
+    <a href="index.html" aria-current="page">トップ</a>
+    <a href="blog.html">ブログ</a>
+    <a href="gallery.html">ギャラリー</a>
+    <a href="about.html">このサイトについて</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <svg class="hero-art" viewBox="0 0 1200 700" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+      <g fill="#2d7bff">
+        <polygon class="stripe" points="800,0 880,0 620,700 540,700"/>
+        <polygon class="stripe" points="930,0 1010,0 750,700 670,700"/>
+        <polygon class="stripe" points="1060,0 1140,0 880,700 800,700"/>
+      </g>
+      <path class="sweep" d="M60 640 C 380 700, 820 520, 1180 120" fill="none" stroke="#fa5400" stroke-width="26" stroke-linecap="round" stroke-dasharray="1600"/>
+    </svg>
+    <div class="kanji" aria-hidden="true">靴</div>
+    <div class="hero-body">
+      <h1>靴を学んで、<br>靴を描く。</h1>
+      <p>スニーカーも革靴も好き。勉強した記録と、描いた漫画やイラストをここにまとめています。</p>
+      <div class="hero-actions">
+        <a class="btn btn-orange" href="blog.html">進捗ブログを読む</a>
+        <a class="btn btn-blue" href="gallery.html">ギャラリーを見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="blog-title">
+    <div class="section-head">
+      <h2 id="blog-title">最近の進捗</h2>
+      <a class="more" href="blog.html">すべて見る</a>
+    </div>
+    <div class="feed">
+      <article class="post">
+        <time datetime="2026-10-15">2026.10.15</time>
+        <p>スニーカーのソールの種類を調べた。ラバーとEVAで履き心地がぜんぜん違う。</p>
+      </article>
+      <article class="post">
+        <time datetime="2026-10-14">2026.10.14</time>
+        <p>革靴の製法を勉強。グッドイヤーウェルトは手間がかかる分、修理しながら長く履けるらしい。</p>
+      </article>
+      <article class="post">
+        <time datetime="2026-10-13">2026.10.13</time>
+        <p>靴の各部分の名前を覚えた。アッパー、ミッドソール、アウトソール、ヒールカウンター。</p>
+      </article>
+    </div>
+    <p class="note">日付と日記だけを並べた、短い記録です。（サンプル文なので、あとで差し替えてね）</p>
+  </section>
+
+  <section class="section" aria-labelledby="gallery-title">
+    <div class="section-head">
+      <h2 id="gallery-title">ギャラリー</h2>
+      <a class="more" href="gallery.html">もっと見る</a>
+    </div>
+    <div class="tiles">
+      <div class="tile">漫画</div>
+      <div class="tile">イラスト</div>
+      <div class="tile">イラスト</div>
+    </div>
+    <p class="note">作品の画像をここに入れます。</p>
+  </section>
+
+  <section class="section" aria-labelledby="about-title">
+    <div class="section-head">
+      <h2 id="about-title">このサイトについて</h2>
+      <a class="more" href="about.html">くわしく見る</a>
+    </div>
+    <p class="about"><strong>靴ノート</strong>は、靴について勉強したことを記録して、描いた作品を飾る場所です。黒い背景に、ナイキのオレンジとアディダスの青を合わせて、スポーツシューズの勢いをイメージしました。</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <span>&copy; 2026 靴ノート</span>
+  <span><a href="blog.html">ブログ</a> / <a href="gallery.html">ギャラリー</a> / <a href="about.html">このサイトについて</a></span>
+</footer>
+
+</body>
+</html>
